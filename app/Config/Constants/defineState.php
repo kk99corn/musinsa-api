@@ -1,0 +1,61 @@
+<?php
+/**
+ * 주문상태
+ */
+const ORDER_STATE_PAY_COMPLETED = 1;        // 결제완료
+const ORDER_STATE_DELIVERY_PROCEED = 2;     // 배송중
+const ORDER_STATE_DELIVERY_COMPLETED = 3;   // 배송완료
+const ORDER_STATE_COMPLETED = 4;            // 구매확정
+const ORDER_STATE_EXCHANGE_REQUEST = 5;     // 교환접수
+const ORDER_STATE_EXCHANGE_COMPLETED = 6;   // 교환완료
+const ORDER_STATE_RETURN_REQUEST = 7;       // 환불접수
+const ORDER_STATE_RETURN_COMPLETED = 8;     // 환불완료
+const ORDER_STATE_NAME = [
+    ORDER_STATE_PAY_COMPLETED => '결제완료',
+    ORDER_STATE_DELIVERY_PROCEED => '배송중',
+    ORDER_STATE_DELIVERY_COMPLETED => '배송완료',
+    ORDER_STATE_COMPLETED => '구매확정',
+    ORDER_STATE_EXCHANGE_REQUEST => '교환접수',
+    ORDER_STATE_EXCHANGE_COMPLETED => '교환완료',
+    ORDER_STATE_RETURN_REQUEST => '환불접수',
+    ORDER_STATE_RETURN_COMPLETED => '환불완료'
+];
+
+/**
+ * 배송비정책
+ */
+const DELIVERY_METHOD_PAY = 1;                      // 유료배송
+const DELIVERY_METHOD_FREE = 2;                     // 무료배송
+const DELIVERY_METHOD_CONDITIONALLY_FREE = 3;       // 조건부무료배송
+const DELIVERY_METHOD_CONDITIONALLY_PRICE = 50000;  // 조건부무료배송 제한금액
+const DELIVERY_METHOD_NAME = [
+    DELIVERY_METHOD_PAY => '유료배송',
+    DELIVERY_METHOD_FREE => '무료배송',
+    DELIVERY_METHOD_CONDITIONALLY_FREE => '조건부무료배송'
+];
+
+/**
+ * 환불방법(교환/반품)
+ */
+const REFUND_METHOD_EXCHANGE = 1;   // 교환
+const REFUND_METHOD_RETURN = 2;     // 환불
+const REFUND_METHOD = [REFUND_METHOD_EXCHANGE, REFUND_METHOD_RETURN];
+const REFUND_METHOD_NAME = [
+    REFUND_METHOD_EXCHANGE => '교환',
+    REFUND_METHOD_RETURN => '환불'
+];
+
+/**
+ * 환불방법별 요청 가능 주문상태(결제완료, 배송완료, 교환완료)
+ */
+const REFUND_REQUEST_AVAILABLE_ORDER_STATE = [ORDER_STATE_PAY_COMPLETED, ORDER_STATE_DELIVERY_COMPLETED, ORDER_STATE_EXCHANGE_COMPLETED];
+
+/**
+ * 환불처리상태
+ */
+const REFUND_PROCESS_STATE_REQUEST = 1; // 환불요청(접수) 상태
+const REFUND_PROCESS_STATE_COMPLETED = 2; // 환불처리완료 상태
+const REFUND_PROCESS_STATE_NAME = [
+    REFUND_PROCESS_STATE_REQUEST => '접수',
+    REFUND_PROCESS_STATE_COMPLETED => '완료'
+];
