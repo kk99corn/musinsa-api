@@ -49,7 +49,6 @@ class Refund extends BaseController
         }
     }
 
-
     /**
      * 반품비 예상 금액 조회(/api/v1/refund/expectation)
      * @return ResponseInterface
@@ -170,6 +169,11 @@ class Refund extends BaseController
                     . ', ip: ' . $this->request->getServer('REMOTE_ADDR')
                     . ', exception: ' . get_class($e)
                     . ', exceptionMessage: ' . $e->getMessage());
+            }
+
+            // 환불(교환/반품) 성공적으로 접수된 경우, status code 201
+            if (isset($refundResult['isRefundAvailable']) && $refundResult['isRefundAvailable']) {
+                $this->apiResponse->setStatusCode(201);
             }
         }
         $this->response->setHeader('content-type', 'application/json');
