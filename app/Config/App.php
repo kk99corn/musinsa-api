@@ -109,7 +109,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $appTimezone = 'Seoul/Asia';
+    public $appTimezone = 'Asia/Seoul';
 
     /**
      * --------------------------------------------------------------------------

@@ -62,7 +62,7 @@ class DataInit extends BaseController
                 $sCreateOrderQuery = "
                         CREATE TABLE IF NOT EXISTS tOrder (
                             nOrderSeq       INTEGER PRIMARY KEY AUTOINCREMENT,
-                            dtCreate        TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            dtCreate        DATE DEFAULT (datetime('now','localtime')),
                             nPrice          INTEGER NOT NULL DEFAULT 0,
                             nDeliveryPrice  INTEGER NOT NULL DEFAULT 0,
                             nDeliveryMethod INTEGER NOT NULL DEFAULT 0,
@@ -93,8 +93,8 @@ class DataInit extends BaseController
                         CREATE TABLE IF NOT EXISTS tRefund (
                             nRefundSeq              INTEGER PRIMARY KEY AUTOINCREMENT,
                             nOrderSeq               INTEGER,
-                            dtRequestDate           TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                            dtCompletedDate         TEXT,
+                            dtRequestDate           DATE DEFAULT (datetime('now','localtime')),
+                            dtCompletedDate         DATE,
                             nRefundMethod           INTEGER NOT NULL DEFAULT 0,
                             nRefundState            INTEGER NOT NULL DEFAULT 0,
                             nRefundPrice            INTEGER NOT NULL DEFAULT 0,
