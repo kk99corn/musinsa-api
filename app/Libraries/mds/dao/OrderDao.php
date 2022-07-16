@@ -5,6 +5,7 @@ namespace App\Libraries\mds\dao;
 use App\Libraries\mds\model\command\OrderCommand;
 use App\Libraries\mds\model\Order;
 use App\Libraries\mds\model\OrderProduct;
+use App\Libraries\mds\model\Refund;
 use PDO;
 use PDOException;
 
@@ -95,10 +96,53 @@ class OrderDao
                 $row['deliveryPrice'],
                 $row['deliveryMethod'],
                 $row['memberSeq'],
-                $orderProductList[$row['orderSeq']]
+                $orderProductList[$row['orderSeq']],
+                null
             );
 
             $aResult[$row['orderSeq']] = $order;
+        }
+
+        // 환불정보 조회
+        foreach ($aResult as $nOrderSeq => $value) {
+            $sRefundQuery = '
+                SELECT
+                    nRefundSeq AS refundSeq,
+                    nOrderSeq AS orderSeq,
+                    dtRequestDate as requestDate,
+                    dtCompletedDate as completedDate,
+                    nRefundMethod as refundMethod,
+                    nRefundState as refundState,
+                    nRefundPrice as refundPrice,
+                    sOrderProductSeqList as orderProductSeqList
+                FROM tRefund
+                WHERE nOrderSeq = :orderSeq
+                ORDER BY nRefundSeq DESC
+            ';
+
+            $aBindParam = [];
+            $aBindParam[':orderSeq'] = $nOrderSeq;
+
+            $stmt = $this->pdo->prepare($sRefundQuery);
+            if ($stmt->execute($aBindParam) === false) {
+                $error = $stmt->errorInfo();
+                throw new PDOException(__CLASS__ . ' > ' . __FUNCTION__ . ' [' . $error[0] . ']' . '[' . $error[1] . '] ' . $error[2]);
+            }
+            $aRefundList = [];
+            while ($refundRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $refund = new Refund(
+                    $refundRow['refundSeq'],
+                    $refundRow['orderSeq'],
+                    $refundRow['requestDate'],
+                    $refundRow['completedDate'],
+                    $refundRow['refundMethod'],
+                    $refundRow['refundState'],
+                    $refundRow['refundPrice'],
+                    $refundRow['orderProductSeqList']
+                );
+                $aRefundList[] = $refund;
+            }
+            $value->setRefundList($aRefundList);
         }
 
         return $aResult;

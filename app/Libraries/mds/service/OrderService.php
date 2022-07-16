@@ -44,6 +44,7 @@ class OrderService
         $orderList = $this->orderDao->selectOrders($orderCommand);
 
         foreach ($orderList as $orderSeq => $order) {
+            // 주문상품정보 세팅
             $orderProductList = [];
             foreach ($order->getOrderProductList() as $orderProductSeq => $orderProduct) {
                 $orderProductList[$orderProductSeq] = [
@@ -56,6 +57,23 @@ class OrderService
                     'quantity' => $orderProduct->getQuantity()
                 ];
             }
+
+            // 주문환불정보 세팅
+            $refundList = [];
+            foreach ($order->getRefundList() as $refund) {
+                $refundList[] = [
+                    'refundSeq' => $refund->getRefundSeq(),
+                    'requestDate' => $refund->getRequestDate(),
+                    'completedDate' => $refund->getCompletedDate(),
+                    'refundMethod' => $refund->getRefundMethod(),
+                    'refundMethodName' => REFUND_METHOD_NAME[$refund->getRefundMethod()],
+                    'refundState' => $refund->getRefundState(),
+                    'refundStateName' => REFUND_PROCESS_STATE_NAME[$refund->getRefundState()],
+                    'refundPrice' => $refund->getRefundPrice(),
+                    'refundOrderProductSeqList' => explode(',', $refund->getOrderProductSeqList())
+                ];
+            }
+
             $result[$orderSeq] = [
                 'orderSeq' => $order->getOrderSeq(),
                 'createDate' => $order->getCreateDate(),
@@ -64,7 +82,8 @@ class OrderService
                 'deliveryMethod' => $order->getDeliveryMethod(),
                 'deliveryMethodName' => DELIVERY_METHOD_NAME[$order->getDeliveryMethod()],
                 'memberSeq' => $order->getMemberSeq(),
-                'orderProductList' => $orderProductList
+                'orderProductList' => $orderProductList,
+                'refundList' => $refundList
             ];
         }
 

@@ -37,7 +37,7 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 
 // 데이터 초기화
-$routes->get('/api/v1/dataInit', 'DataInit::index');
+$routes->post('/api/v1/dataInit', 'DataInit::index');
 // 주문
 $routes->get('/api/v1/orders', 'Order::getOrders');
 // 환불

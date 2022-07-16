@@ -45,9 +45,15 @@ class Order
 
     /**
      * 주문상품리스트
-     * @var array
+     * @var array<OrderProduct>
      */
     private array $orderProductList;
+
+    /**
+     * 환불정보 리스트
+     * @var ?array<Refund>
+     */
+    private ?array $refundList;
 
     /**
      * @param int $orderSeq
@@ -57,8 +63,9 @@ class Order
      * @param int $deliveryMethod
      * @param int $memberSeq
      * @param array $orderProductList
+     * @param ?array $refundList
      */
-    public function __construct(int $orderSeq, string $createDate, int $price, int $deliveryPrice, int $deliveryMethod, int $memberSeq, array $orderProductList)
+    public function __construct(int $orderSeq, string $createDate, int $price, int $deliveryPrice, int $deliveryMethod, int $memberSeq, array $orderProductList, ?array $refundList)
     {
         $this->orderSeq = $orderSeq;
         $this->createDate = $createDate;
@@ -67,6 +74,7 @@ class Order
         $this->deliveryMethod = $deliveryMethod;
         $this->memberSeq = $memberSeq;
         $this->orderProductList = $orderProductList;
+        $this->refundList = $refundList;
     }
 
     /**
@@ -179,5 +187,21 @@ class Order
     public function setOrderProductList(array $orderProductList): void
     {
         $this->orderProductList = $orderProductList;
+    }
+
+    /**
+     * @return ?array
+     */
+    public function getRefundList(): ?array
+    {
+        return $this->refundList;
+    }
+
+    /**
+     * @param array $refundList
+     */
+    public function setRefundList(array $refundList): void
+    {
+        $this->refundList = $refundList;
     }
 }
