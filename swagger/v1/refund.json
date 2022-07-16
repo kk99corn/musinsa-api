@@ -39,7 +39,7 @@
     "/orders": {
       "get": {
         "tags": [
-          "orders: 주문 API v1"
+          "orders: 주문 API"
         ],
         "summary": "주문조회 API",
         "description": "<b>테스트용 세팅 데이터</b>\n * memberSeq=1\n * orderSeq=[1, 2, 3]",
@@ -80,7 +80,7 @@
     "/refund/expectation": {
       "get": {
         "tags": [
-          "refund: 교환/환불 API v1"
+          "refund: 교환/환불 API"
         ],
         "summary": "반품비 예상 금액 조회 API",
         "description": "<b>테스트용 세팅 데이터</b>\n * memberSeq=1\n * orderSeq=[1, 2, 3]\n * orderProductSeq=[1=[1, 2, 3], 2=[4, 5, 6], 3=[7, 8, 9]",
