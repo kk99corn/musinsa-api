@@ -14,6 +14,10 @@
 |POST|/api/v1/refund/exchange|교환 접수 API|
 |POST|/api/v1/refund/return|환불 접수 API|
 
+- erd
+
+![erd](https://user-images.githubusercontent.com/39252052/179399071-03d290eb-1b46-4cf8-8eca-6a2252ca9719.JPG)
+
 ## 프로젝트 실행방법 3가지
 ### 1. 윈도우10 > wsl2(ubuntu20.04.4 lts) + docker 사용
 
